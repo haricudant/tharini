@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages for My Love</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background:  #ece9eb; /* Gradient background */
+      color: #800080; /* Setting text color to purple */
+      margin: 0; /* Remove default body margin */
+      padding: 0; /* Remove default body padding */
+      font-family: Arial, sans-serif; /* Specify font family */
+    }
+    .container {
+      height: 100vh; /* Make container fill the viewport height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-primary {
+      background-color: #ff1493; /* Dark pink background color */
+      border-color: #ff1493; /* Dark pink border color */
+      border-radius: 50px; /* Make buttons round */
+      width: 80%; /* Set button width */
+      margin-bottom: 20px; /* Add space between buttons */
+    }
+    .quote {
+      font-size: 20px;
+      font-style: italic;
+      margin-top: 20px;
+    }
+    .heart-background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('heart.png') no-repeat center center; /* Replace 'heart.png' with your heart-shaped image */
+      background-size: cover;
+      opacity: 0.2; /* Adjust opacity as needed */
+      z-index: -1;
+    }
+    .party-board {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 50, 0.9); /* Dark blue background color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      animation: confetti 2s ease-out forwards;
+      z-index: 9999;
+    }
+    .party-caption {
+      color: #800080; /* Purple text color */
+      text-align: center; /* Align text center */
+      font-size: 32px; /* Larger font size */
+    }
+  </style>
+</head>
+<body>
+<div class="heart-background"></div>
+
+<div class="party-board" id="partyBoard">
+  <div class="party-caption">
+    <p>🎉 Happy Birthday My Love! 🎂</p>
+  </div>
+</div>
+
+<div class="container" id="mainContent" style="display: none;">
+  <div class="row">
+    <div class="col-md-12 text-center" id="titleContainer">
+      <h1>Kannamma, Click these below Messages If -</h1>
+    </div>
+  </div>
+  <div class="btn-container" id="buttonContainer">
+    <button id="missBtn" class="btn btn-primary btn-lg" onclick="showQuote('miss')">U Miss Me</button>
+    <button id="happyBtn" class="btn btn-primary btn-lg" onclick="showQuote('happy')">Are Happy</button>
+    <button id="badBtn" class="btn btn-primary btn-lg" onclick="showQuote('bad')">Have a Bad Day</button>
+    <button id="busyBtn" class="btn btn-primary btn-lg" onclick="showQuote('busy')">Have a Busy Day</button>
+    <button id="tiredBtn" class="btn btn-primary btn-lg" onclick="showQuote('tired')">Are Tired</button>
+  </div>
+  <div class="row text-center" id="quoteDisplayContainer" style="display: none;">
+    <div class="col-md-8 offset-md-2">
+      <p id="quoteDisplay" class="quote">Click a button to see a message</p>
+      <button class="btn text-center btn-primary btn-lg" onclick="showButtons()">Back</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Function to show the main content and hide the party board
+  function showMainContent() {
+    document.getElementById("partyBoard").style.display = 'none';
+    document.getElementById("mainContent").style.display = 'flex';
+  }
+
+  // Function to show a random birthday message
+  function showBirthdayMessage() {
+    var birthdayMessages = [
+      "🎉 Happy Birthday My Love! 🎂",
+      "🎈 Wishing you a day filled with love and joy! 🎁",
+      "🌟 May your day be as special as you are to me! 💖"
+    ];
+    var randomIndex = Math.floor(Math.random() * birthdayMessages.length);
+    return birthdayMessages[randomIndex];
+  }
+
+  // When the page loads, show the party board for a few seconds, then show the main content
+  window.onload = function() {
+    document.getElementById("partyBoard").innerHTML = "<div class='party-caption'><p>" + showBirthdayMessage() + "</p></div>";
+    setTimeout(showMainContent, 2000); // Show main content after 2 seconds
+  };
+
+  // Function to show the quote corresponding to the button clicked
+  function showQuote(type) {
+    var quotes = {
+      'miss': ["My dearest love, every moment without you feels like an eternity. I yearn for the day when we can be together again, holding each other close and never letting go.", 
+               "As the miles separate us, my heart remains steadfast in its love for you. I carry your love with me wherever I go, cherishing the memories we've shared and eagerly awaiting the moments yet to come."],
+      'happy': ["My love, your laughter is the melody that fills my heart with joy. With you by my side, every moment is a celebration, and every day is brighter than the last.", 
+                "In your eyes, I see the reflection of my happiness, my love. With you, the world feels like a beautiful dream, and I am grateful for every moment spent in your embrace."],
+      'bad': ["My darling, even in your darkest hours, know that you are not alone. I am here for you, holding you in my thoughts and wrapping you in my love. Together, we will weather this storm and emerge stronger than before.", 
+              "When life throws its challenges our way, remember that I am your unwavering support. Lean on me, my love, and let me be the light that guides you through the darkness."],
+      'busy': ["My love, in the midst of your busy day, take a moment to breathe and remember the love that surrounds you. You are capable of achieving great things, but never forget to nurture your spirit and prioritize your well-being.", 
+               "As you navigate the hustle and bustle of life, know that I am cheering you on from afar. Your determination inspires me, and your resilience fills me with pride. Take each moment as it comes, my love, and know that I am here, rooting for you every step of the way."],
+      'tired': ["Sweetheart, when the weight of the world feels heavy on your shoulders, remember that you are loved beyond measure. Rest your weary soul, for tomorrow is a new day filled with endless possibilities.", 
+                "As exhaustion sets in and weariness takes hold, allow yourself the grace to pause and recharge. You are my source of strength and inspiration, and your well-being is my utmost priority. Let the warmth of my love envelop you, my darling, and find solace in the comfort of my embrace."]
+    };
+    var randomIndex = Math.floor(Math.random() * quotes[type].length);
+    var selectedQuote = quotes[type][randomIndex];
+    document.getElementById("quoteDisplay").innerText = selectedQuote;
+    hideButtons();
+    document.getElementById("titleContainer").style.display = 'none';
+  }
+
+  // Function to hide the buttons and display the quote display container
+  function hideButtons() {
+    document.getElementById("buttonContainer").style.display = 'none';
+    document.getElementById("quoteDisplayContainer").style.display = 'block';
+  }
+
+  // Function to show the buttons and hide the quote display container
+  function showButtons() {
+    document.getElementById("buttonContainer").style.display = 'flex';
+    document.getElementById("quoteDisplayContainer").style.display = 'none';
+    document.getElementById("titleContainer").style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
